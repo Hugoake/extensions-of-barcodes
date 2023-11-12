@@ -4,11 +4,12 @@ from ext_barcodes_iterator import(ext_barcodes,
                                   lpnormtothep,
                                   non_zero_ext_cond,
                                   rand_valid_sort)
-from random import (randint
+from random import (randint,
                     seed,
                     choice)
 from copy import copy
 from multiset import FrozenMultiset
+from math import inf
 seed()
 
 
@@ -55,9 +56,11 @@ while True:
       if current > first_place:
         first_place = current
     
-    greedy = lpnormtothep(max_ext_barcode(x_bars, y_bars))
+    greedy = lpnormtothep(max_ext_barcode(x_bars, y_bars), p)
     if greedy != first_place:
       print("Conjecture is false.")
+      print(greedy, first_place)
+      print(*barcodes_set, sep='\n')
       quit()
     
     if iterations > 0:

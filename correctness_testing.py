@@ -44,14 +44,18 @@ while True:
       births = Multiset(map(birth, barcode))
       deaths = Multiset(map(death, barcode))
       trivial_barcode = x_bars+y_bars
-      correct_births = Multiset(map(birth, trivial_barcode))
-      correct_deaths = Multiset(map(death, trivial_barcode))
-      if births != correct_births or deaths != correct_deaths:
-        print("The algorithm/implementation is incorrect!")
+      reference_births = Multiset(map(birth, trivial_barcode))
+      reference_deaths = Multiset(map(death, trivial_barcode))
+      # The following test checks if the births and deaths of barcode
+      # equal those of trivial_barcode, module that any pair in
+      # barcode on the form (a,a) would have been removed.
+      if not(reference_births - births == reference_deaths - deaths):
+        print("The function ext_barcodes is incorrect!")
         quit()
       for bar in barcode:
+        # The following tests checks if there are no bars of negative length
         if death(bar) < birth(bar):
-          print("The algorithm/implementation is incorrect!")
+          print("The function ext_barcodes is incorrect!")
           quit()
       
       iterations+=1

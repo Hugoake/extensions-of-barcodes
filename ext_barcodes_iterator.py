@@ -150,6 +150,9 @@ def ext_barcodes_spec(x_bar, y_bars, antichains_func=None):
     for bar in ac:
       barcode.remove(bar)
     barcode.update(shift([x_bar]+ac))
+    for bar in list(filter(lambda bar: birth(bar)==death(bar), barcode)):
+      # Here, a==b and we shall thus remove this bar
+      barcode.remove(bar)
     yield barcode
 
 
